@@ -1,6 +1,5 @@
 <template>
   <div class="flex-col">
-
     <div class="flex justify-center">
       <bounce-loader :loading="isLoading" :color="'#68d391'" :size="100" />
     </div>
@@ -53,7 +52,9 @@
         <div class="my-10 sm:mt-0 flex flex-col justify-center text-center">
           <button
             class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
-          >Cambiar</button>
+          >
+            Cambiar
+          </button>
 
           <div class="flex flex-row my-5">
             <label class="w-full" for="convertValue">
@@ -68,50 +69,57 @@
           <span class="text-xl"></span>
         </div>
       </div>
-
-      <line-chart 
+      <line-chart :data="{ '2017-05-13': 2, '2017-05-14': 5 }"></line-chart>
+      <line-chart
         class="my-10"
         :colors:="['orange']"
         :min="min"
         :max="max"
-        :data="history.map( h => [h.date, parseFloat(h.priceUsd).toFixed(2)] )"
+        :data="chartData"
       ></line-chart>
-
     </template>
   </div>
 </template>
 
 <script>
-import api from '@/api'
+import api from "@/api";
 
 export default {
-  name: 'CoinDetail',
+  name: "CoinDetail",
 
   data() {
     return {
       isLoading: false,
       asset: {},
       history: []
-    }
+    };
   },
 
   computed: {
     min() {
       return Math.min(
         ...this.history.map(h => parseFloat(h.priceUsd).toFixed(2))
-      )
+      );
     },
 
     max() {
       return Math.max(
         ...this.history.map(h => parseFloat(h.priceUsd).toFixed(2))
-      )
+      );
     },
 
     avg() {
       return Math.abs(
         ...this.history.map(h => parseFloat(h.priceUsd).toFixed(2))
-      )
+      );
+    },
+
+    chartData() {
+      const data = [];
+      this.history.map(h => {
+        data.push([h.date, parseFloat(h.priceUsd).toFixed(2)]);
+      });
+      return data;
     }
   },
 
@@ -122,17 +130,17 @@ export default {
 
   methods: {
     getCoin() {
-      const id = this.$route.params.id
+      const id = this.$route.params.id;
 
-      Promise.all([api.getAsset(id), api.getAssetHistory(id)]).then(
-        ([asset, history]) => {
-          this.asset = asset
-          this.history = history
-        }
-      ).finally( () => this.isLoading = false )
+      Promise.all([api.getAsset(id), api.getAssetHistory(id)])
+        .then(([asset, history]) => {
+          this.asset = asset;
+          this.history = history;
+        })
+        .finally(() => (this.isLoading = false));
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -141,4 +149,3 @@ td {
   text-align: center;
 }
 </style>
-

@@ -20,15 +20,21 @@
         class="border-b border-gray-200 hover:bg-gray-100 hover:bg-orange-100"
       >
         <td>
-          <img class="w-6 h-6" :src="`https://static.coincap.io/assets/icons/${a.symbol.toLowerCase()}@2x.png`" :alt="a.name">
+          <img
+            class="w-6 h-6"
+            :src="
+              `https://static.coincap.io/assets/icons/${a.symbol.toLowerCase()}@2x.png`
+            "
+            :alt="a.name"
+          />
         </td>
         <td>
           <b># {{ a.rank }}</b>
         </td>
         <td>
-          <router-link 
-            class="hover:underline text-green-600" 
-            :to="{ name: 'coin-detail' , params: { id: a.id } }"
+          <router-link
+            class="hover:underline text-green-600"
+            :to="{ name: 'coin-detail', params: { id: a.id } }"
           >
             {{ a.name }}
             <small class="ml-1 text-gray-500">
@@ -42,11 +48,19 @@
         <td>
           {{ a.marketCapUsd | dollar }}
         </td>
-        <td :class="a.changePercent24Hr.includes('-') ? 'text-red-600' : 'text-green-600'">
+        <td
+          :class="
+            a.changePercent24Hr.includes('-')
+              ? 'text-red-600'
+              : 'text-green-600'
+          "
+        >
           {{ a.changePercent24Hr | percent }}
         </td>
         <td class="hidden sm:block">
-          <px-button @custom-click="goToCoin(a.id)"><span>Detalle</span></px-button>
+          <px-button @custom-click="goToCoin(a.id)"
+            ><span>Detalle</span></px-button
+          >
         </td>
       </tr>
     </tbody>
@@ -70,11 +84,10 @@ export default {
   },
 
   methods: {
-    goToCoin(id){
-      this.$router.push( { name: "coin-detail" , params: {id} } );
+    goToCoin(id) {
+      this.$router.push({ name: "coin-detail", params: { id } });
     }
   }
-  
 };
 </script>
 

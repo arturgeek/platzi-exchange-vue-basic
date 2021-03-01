@@ -13,7 +13,6 @@ export default new Router({
     { path: "/", name: "home", component: Home },
     { path: "/about", name: "about", component: About },
     { path: "/coin/:id", name: "coin-detail", component: CoinDetail },
-    { path: "*", name: "error", component: Error },
-    
+    { path: "*", name: "error", component: Error }
   ]
 });

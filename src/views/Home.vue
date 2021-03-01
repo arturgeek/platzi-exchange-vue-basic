@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import api from "@/api"
+import api from "@/api";
 import PxAssetsTable from "@/components/PxAssetsTable";
 
 export default {
@@ -18,12 +18,15 @@ export default {
     return {
       assets: [],
       isLoading: false
-    }
+    };
   },
-  
-  created (){
+
+  created() {
     this.isLoading = true;
-    api.getAssets().then( assets => ( this.assets = assets ) ).finally( () => this.isLoading = false );
+    api
+      .getAssets()
+      .then(assets => (this.assets = assets))
+      .finally(() => (this.isLoading = false));
   }
 };
 </script>
