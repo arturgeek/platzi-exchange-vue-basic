@@ -24,7 +24,7 @@ export default {
   created() {
     this.isLoading = true;
     api
-      .getAssets()
+      .getAssets(20)
       .then(assets => (this.assets = assets))
       .finally(() => (this.isLoading = false));
   }
